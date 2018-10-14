@@ -1,0 +1,23 @@
+version: '2'
+services:
+    app-iban:
+        container_name: app-iban
+        build:
+            context: .
+            dockerfile: Dockerfile
+        image: app-iban:latest
+        expose:
+            - 8080
+        links:
+            - mysql
+    mysql:
+        image: mysql
+
+        environment:
+            - MYSQL_USER=appuser
+            - MYSQL_PASSWORD=root
+            - MYSQL_DATABASE=db_example
+            - MYSQL_ROOT_PASSWORD=root
+        volumes:
+            - "./conf.d:/etc/mysql/conf.d:ro"
+
